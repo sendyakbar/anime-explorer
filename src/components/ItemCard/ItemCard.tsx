@@ -24,10 +24,12 @@ export const ItemCard: FC<ItemCardProps> = (props) => {
         <Image source={{ uri: imageUri }} style={styles.image} resizeMode="cover" />
         <Container fill noPadding justify="space-between">
           <Container noPadding>
-            <Text variant="h4">{title}</Text>
+            <Text variant="subtitle" numberOfLines={2}>
+              {title}
+            </Text>
             <Spacer vertical space="s" />
-            <Text variant="body">Score: {score || 'N/A'}</Text>
-            <Text variant="body">Episodes: {episodes || 'N/A'}</Text>
+            <Text variant="caption">Score: {score || 'N/A'}</Text>
+            <Text variant="caption">Episodes: {episodes || 'N/A'}</Text>
           </Container>
           <TouchableOpacity
             onPress={onPressFavorite}
