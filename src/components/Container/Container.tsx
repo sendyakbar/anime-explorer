@@ -1,7 +1,7 @@
 import { forwardRef, useCallback } from "react";
 import { ContainerProps } from "./types";
 import { View } from "react-native";
-import { Space, space } from "../../styles/space";
+import { Space, space } from "../../themes/space";
 import { styles } from "./styles";
 
 export const Container = forwardRef<View, ContainerProps>((props, ref) => {

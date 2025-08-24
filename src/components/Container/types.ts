@@ -1,6 +1,6 @@
 import { ViewProps, ViewStyle } from "react-native";
-import { Space } from "../../styles/space";
-import { Color } from "../../styles/color";
+import { Space } from "../../themes/space";
+import { Color } from "../../themes/color";
 
 export type ContainerProps = {
   ph?: Space
