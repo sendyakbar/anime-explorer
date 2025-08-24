@@ -1,97 +1,171 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# AnimeExplorer
 
-# Getting Started
+A React Native application for exploring top anime using the Jikan API (MyAnimeList). The app features infinite scrolling, favorites management, and detailed anime information.
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+## Features
 
-## Step 1: Start Metro
+- Browse top anime with infinite scrolling
+- View detailed anime information including synopsis, genres, and ratings
+- Add/remove anime to/from favorites with persistent storage
+- Bottom tab navigation between anime list and favorites
+- Optimized performance with Redux Toolkit Query caching
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+## Instructions to Run the App
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+### Prerequisites
 
-```sh
-# Using npm
-npm start
+- Node.js >= 20.19.4
+- React Native development environment set up
+- For iOS: Xcode and CocoaPods
+- For Android: Android Studio and Android SDK
 
-# OR using Yarn
-yarn start
+### Installation
+
+1. **Clone the repository and install dependencies:**
+   ```bash
+   cd AnimeExplorer
+   yarn install
+   ```
+
+2. **iOS Setup (if running on iOS):**
+   ```bash
+   # Install Ruby bundler dependencies
+   bundle install
+   
+   # Install CocoaPods dependencies
+   cd ios && pod install && cd ..
+   ```
+
+3. **Start Metro bundler:**
+   ```bash
+   yarn start
+   ```
+
+4. **Run the app:**
+   
+   For iOS:
+   ```bash
+   yarn ios
+   ```
+   
+   For Android:
+   ```bash
+   yarn android
+   ```
+
+### Development Commands
+
+- `yarn start` - Start Metro bundler
+- `yarn ios` - Run on iOS simulator
+- `yarn android` - Run on Android emulator
+- `yarn lint` - Run ESLint
+
+## Known Limitations and Trade-offs
+
+### Technical Limitations
+
+1. **API Rate Limiting**: The Jikan API has rate limits that may cause slow loading during heavy usage
+2. **Image Loading**: Large anime poster images may cause performance issues on slower devices
+3. **Offline Support**: No offline functionality - requires internet connection to fetch data
+4. **Search Functionality**: Currently only displays top anime; no search or filtering capabilities
+
+### Architecture Trade-offs
+
+1. **Bundle Size**: Including React Navigation, Redux Toolkit, and Reanimated increases app size
+2. **Memory Usage**: Infinite scrolling keeps all loaded data in memory (though paginated)
+3. **State Persistence**: Only favorites are persisted; scroll position and cache reset on app restart
+4. **Platform Differences**: Some styling and navigation behaviors may differ between iOS and Android
+
+### Future Improvements
+
+- Add search and filtering functionality
+- Implement image caching and optimization
+- Add offline support with local database
+- Implement pull-to-refresh functionality
+- Add user authentication and cloud sync for favorites
+
+## Thought Process and Architecture Decisions
+
+### Overall Architecture
+
+I chose a **layered architecture** with clear separation of concerns:
+
+```
+├── App.tsx (Root component with providers)
+├── src/
+│   ├── components/ (Reusable UI components)
+│   ├── screens/ (Feature-based screen components)
+│   ├── navigation/ (React Navigation setup)
+│   ├── store/ (Redux store, slices, and API)
+│   ├── hooks/ (Custom React hooks)
+│   ├── types/ (TypeScript type definitions)
+│   ├── themes/ (Design system tokens)
+│   └── styles/ (Shared styling utilities)
 ```
 
-## Step 2: Build and run your app
+### Key Architectural Decisions
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
+#### 1. State Management - Redux Toolkit + RTK Query
+**Decision**: Used Redux Toolkit with RTK Query for state management and API calls.
 
-### Android
+**Reasoning**:
+- **Caching**: RTK Query provides automatic caching and background refetching
+- **Infinite Scrolling**: Custom merge function handles paginated data efficiently
+- **Predictable State**: Redux ensures predictable state updates across the app
+- **DevTools**: Excellent debugging experience with Redux DevTools
 
-```sh
-# Using npm
-npm run android
+#### 2. Navigation - React Navigation v7 with Static Configuration
+**Decision**: Used React Navigation with static configuration instead of dynamic.
 
-# OR using Yarn
-yarn android
-```
+**Reasoning**:
+- **Type Safety**: Better TypeScript integration with static configuration
+- **Performance**: Compile-time navigation structure reduces runtime overhead
+- **Maintainability**: Centralized navigation configuration is easier to manage
 
-### iOS
+#### 3. Data Persistence - Redux Persist with AsyncStorage
+**Decision**: Used Redux Persist to persist only the favorites slice.
 
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
+**Reasoning**:
+- **Selective Persistence**: Only persist user data (favorites), not API cache
+- **Performance**: Avoid persisting large amounts of API data
+- **Storage Efficiency**: AsyncStorage handles small amounts of data efficiently
 
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
+#### 4. Component Organization - Feature-Based Structure
+**Decision**: Organized components by feature/screen rather than by type.
 
-```sh
-bundle install
-```
+**Reasoning**:
+- **Colocation**: Related components stay together (easier maintenance)
+- **Scalability**: Easy to add new features without reorganizing
+- **Context**: Screen-specific hooks and components are co-located
 
-Then, and every time you update your native dependencies, run:
+#### 5. Styling Strategy - Theme-Based Design System
+**Decision**: Created a design system with centralized tokens for colors, spacing, and typography.
 
-```sh
-bundle exec pod install
-```
+**Reasoning**:
+- **Consistency**: Ensures consistent visual design across the app
+- **Maintainability**: Easy to update design system globally
+- **Scalability**: New components can easily adopt the design system
+- **Brand Cohesion**: Centralized theming enables easy brand updates
 
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
+#### 6. Performance Optimizations
+**Decisions Made**:
+- **FlatList**: Used for efficient rendering of large lists
+- **Image Optimization**: Placeholder images while loading
+- **Memoization**: Strategic use of React.memo and useMemo
+- **Lazy Loading**: Components and data loaded as needed
 
-```sh
-# Using npm
-npm run ios
+### Design Patterns Used
 
-# OR using Yarn
-yarn ios
-```
+1. **Provider Pattern**: App wrapped with Redux Provider and PersistGate
+2. **Custom Hooks**: Encapsulated complex logic in reusable hooks
+3. **Composition**: Small, focused components composed together
+4. **Dependency Injection**: Services and APIs injected through Redux store
 
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
+### Why These Choices Work Well Together
 
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
+- **Redux + React Navigation**: Excellent integration for navigation state management
+- **TypeScript + Static Navigation**: Compile-time safety for navigation
+- **Feature-based Organization**: Makes the codebase scalable and maintainable
+- **Design System**: Ensures consistent user experience across all screens
 
-## Step 3: Modify your app
-
-Now that you have successfully run the app, let's make changes!
-
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
-
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
-
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
-
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+This architecture provides a solid foundation for a production app while maintaining simplicity and developer experience.
