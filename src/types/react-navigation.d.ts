@@ -1,6 +1,4 @@
-import { RootNavigator } from "../navigation/RootNavigator";
-
-type RootStackParamList = StaticParamList<typeof RootNavigator>;
+import { RootStackParamList } from "../navigation/RootNavigator";
 
 declare global {
   namespace ReactNavigation {
