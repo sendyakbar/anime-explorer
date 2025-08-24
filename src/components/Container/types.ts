@@ -16,4 +16,5 @@ export type ContainerProps = {
   background?: Color
   noPadding?: boolean
   fill?: boolean
+  wrap?: ViewStyle['flexWrap']
 } & ViewProps

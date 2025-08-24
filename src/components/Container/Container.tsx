@@ -21,6 +21,7 @@ export const Container = forwardRef<View, ContainerProps>((props, ref) => {
     noPadding,
     style,
     fill,
+    wrap,
     ...rest
   } = props
 
@@ -42,6 +43,7 @@ export const Container = forwardRef<View, ContainerProps>((props, ref) => {
           justifyContent: justify,
           gap: gap ? space[gap] : undefined,
           backgroundColor: background,
+          flexWrap: wrap,
         },
         noPadding ? {
           padding: space[0],
