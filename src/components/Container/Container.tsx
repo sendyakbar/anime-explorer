@@ -3,6 +3,7 @@ import { ContainerProps } from "./types";
 import { View } from "react-native";
 import { Space, space } from "../../themes/space";
 import { styles } from "./styles";
+import { color } from "../../themes/color";
 
 export const Container = forwardRef<View, ContainerProps>((props, ref) => {
   const {
@@ -42,7 +43,7 @@ export const Container = forwardRef<View, ContainerProps>((props, ref) => {
           alignItems: alignment,
           justifyContent: justify,
           gap: gap ? space[gap] : undefined,
-          backgroundColor: background,
+          backgroundColor: background ? color[background] : undefined,
           flexWrap: wrap,
         },
         noPadding ? {
