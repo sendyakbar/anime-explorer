@@ -1,6 +1,6 @@
 import React, { FC, useCallback } from "react";
 import { ActivityIndicator } from "react-native";
-import { useInfiniteAnime } from "../../hooks/useInfiniteAnime";
+import { useInfiniteAnime } from "./hooks/useInfiniteAnime";
 import { Text } from "../../components/Text/Text";
 import { Container } from "../../components/Container/Container";
 import { LazyList } from "../../components/LazyList/LazyList";

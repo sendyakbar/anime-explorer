@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react';
-import { useGetInfiniteTopAnimeQuery } from '../store/api/animeApi';
+import { useGetInfiniteTopAnimeQuery } from '../../../store/api/animeApi';
 
 export const useInfiniteAnime = (limit: number = 10) => {
   const [currentPage, setCurrentPage] = useState(1);
