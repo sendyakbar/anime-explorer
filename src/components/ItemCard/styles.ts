@@ -6,7 +6,7 @@ export const styles = StyleSheet.create({
     width: 80,
     height: 120,
     borderRadius: 8,
-    backgroundColor: color.disabled,
+    backgroundColor: color.lightGray,
   },
   favoriteButton: {
     backgroundColor: color.lightGray,
@@ -14,5 +14,8 @@ export const styles = StyleSheet.create({
     borderRadius: 6,
     marginTop: 8,
     alignSelf: 'flex-start',
+  },
+  favoriteButtonActive: {
+    backgroundColor: color.lightPink,
   },
 })

@@ -30,8 +30,13 @@ export const ItemCard: FC<ItemCardProps> = (props) => {
             <Text variant="body">Episodes: {episodes || 'N/A'}</Text>
           </Container>
           <TouchableOpacity
-            style={styles.favoriteButton}
             onPress={onPressFavorite}
+            style={[
+              styles.favoriteButton,
+              isFavorite
+                ? styles.favoriteButtonActive
+                : null,
+              ]}
           >
             <Text variant="caption">
               {isFavorite ? '❤️ Remove' : '🤍 Add to Favorites'}
