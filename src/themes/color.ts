@@ -7,6 +7,7 @@ export const color = {
   success: '#2c7873',
   warning: '#f8a573',
   error: '#9e2d29',
+  lightGray: '#f5f5f5'
 }
 
 export type Color = keyof typeof color
