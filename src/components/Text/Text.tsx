@@ -10,6 +10,7 @@ export const Text = forwardRef<RNText, TextProps>((props, ref) => {
     variant = 'body',
     ink = 'primary',
     textAlign,
+    style,
     ...rest
   } = props;
 
@@ -19,7 +20,8 @@ export const Text = forwardRef<RNText, TextProps>((props, ref) => {
       style={[
         typography[variant],
         textColor[ink],
-        { textAlign }
+        { textAlign },
+        style,
       ]}
       {...rest}
     >
