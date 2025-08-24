@@ -16,9 +16,9 @@ export const favoritesSlice = createSlice({
         state.push(anime);
       }
     },
-    removeFromFavorites: (state, action: PayloadAction<number>) => {
-      const animeId = action.payload;
-      state = state.filter(anime => anime.mal_id !== animeId);
+    removeFromFavorites: (state, action: PayloadAction<Anime>) => {
+      const anime = action.payload;
+      return state.filter(fav => fav.mal_id !== anime.mal_id);
     },
   },
 });
