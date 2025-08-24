@@ -4,6 +4,9 @@ import { MainBottomTabNavigator } from "./MainBottomTabNavigator";
 import { StaticParamList } from "@react-navigation/native";
 
 export const RootNavigator = createNativeStackNavigator({
+  screenOptions: {
+    headerShown: false
+  },
   screens: {
     MainBottomTabNavigator,
     AnimeDetailScreen,

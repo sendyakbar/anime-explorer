@@ -4,9 +4,22 @@ import { FavoriteListScreen } from "../screens/FavoriteList/FavoriteListScreen";
 import { StaticParamList } from "@react-navigation/native";
 
 export const MainBottomTabNavigator = createBottomTabNavigator({
+  screenOptions: {
+    headerShown: false,
+  },
   screens: {
-    AnimeListScreen,
-    FavoriteListScreen,
+    AnimeListScreen: {
+      screen: AnimeListScreen,
+      options: {
+        title: 'Top Anime',
+      },
+    },
+    FavoriteListScreen: {
+      screen: FavoriteListScreen,
+      options: {
+        title: 'My Favorite',
+      },
+    },
   }
 })
 
