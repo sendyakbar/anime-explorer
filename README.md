@@ -29,16 +29,13 @@ A React Native application for exploring top anime using the Jikan API (MyAnimeL
 
 2. **iOS Setup (if running on iOS):**
    ```bash
-   # Install Ruby bundler dependencies
-   bundle install
-   
    # Install CocoaPods dependencies
    cd ios && pod install && cd ..
    ```
 
 3. **Start Metro bundler:**
    ```bash
-   yarn start
+   yarn start --reset-cache
    ```
 
 4. **Run the app:**
