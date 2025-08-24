@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { color } from "./color";
+import { color } from "../themes/color";
 
 export const textColor = StyleSheet.create({
   primary: { color: color.primary },
