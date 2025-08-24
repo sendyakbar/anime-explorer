@@ -1,7 +1,7 @@
 import { FC } from "react";
+import { Image, TouchableOpacity } from "react-native";
 import { Card } from "../Card/Card";
 import { Container } from "../Container/Container";
-import { Image, TouchableOpacity } from "react-native";
 import { Text } from "../Text/Text";
 import { Spacer } from "../Spacer/Spacer";
 import { ItemCardProps } from "./types";
@@ -19,7 +19,7 @@ export const ItemCard: FC<ItemCardProps> = (props) => {
   } = props;
 
   return (
-    <Card onPress={onPress} borderRadius="l">
+    <Card onPress={onPress} borderRadius="l" shadow="card">
       <Container direction="row" noPadding gap="l">
         <Image source={{ uri: imageUri }} style={styles.image} resizeMode="cover" />
         <Container fill noPadding justify="space-between">

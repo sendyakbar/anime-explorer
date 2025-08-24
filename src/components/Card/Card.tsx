@@ -4,6 +4,7 @@ import { CardProps } from "./type";
 import { space, Space } from "../../themes/space";
 import { radius } from "../../themes/radius";
 import { shadow as shadows } from "../../styles/shadow";
+import { color } from "../../themes/color";
 
 export const Card = forwardRef<View, CardProps>((props, ref) => {
   const {
@@ -17,7 +18,8 @@ export const Card = forwardRef<View, CardProps>((props, ref) => {
     gap,
     background = 'white',
     borderRadius = 'm',
-    shadow = 'card',
+    shadow,
+    onPress,
     ...rest
   } = props;
 
@@ -27,6 +29,8 @@ export const Card = forwardRef<View, CardProps>((props, ref) => {
     <TouchableOpacity
       ref={ref}
       activeOpacity={0.8}
+      onPress={onPress || undefined}
+      disabled={!onPress}
       style={[
         {
           paddingHorizontal: space[ph],
@@ -36,7 +40,7 @@ export const Card = forwardRef<View, CardProps>((props, ref) => {
           paddingLeft: resolvePadding(pl),
           paddingBottom: resolvePadding(pb),
           gap: gap ? space[gap] : undefined,
-          backgroundColor: background,
+          backgroundColor: color[background],
           borderRadius: radius[borderRadius]
         },
         shadow ? shadows[shadow] : undefined
